@@ -1,0 +1,176 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300);
+
+html, body {
+    padding: 0;
+    margin: 0;
+    background-color: red;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2 {
+    margin: 0;
+}
+
+.title {
+    margin: 20px;
+}
+
+.hidden {
+    display : none;
+}
+
+.accessToken, .contestantsTable, .roundsTable, .updateScoresButton {
+    margin: 20px;
+    background-color: darkred;
+    padding: 12px;
+    word-break: break-all;
+}
+
+.headerCell {
+    font-weight: 600;
+    justify-content: center;
+}
+
+.table {
+    display: flex;
+    flex-flow: column nowrap;
+    -webkit-box-pack: justify;
+}
+
+.tableRow {
+    display: flex;
+    flex-flow: row nowrap;
+    border-top: 1px solid white;
+}
+
+.tableRow:first-child {
+    border-top: none;
+}
+
+.tableRow.inactive {
+    opacity: .4;
+}
+
+.tableRowItem {
+    padding: 4px;
+    display: flex;
+    flex-flow: row nowrap;
+    flex-grow: 1;
+    flex-basis: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    border-left: 1px solid white;
+    align-items: center;
+}
+
+.tableRowItem:first-child {
+    border-left: none;
+}
+
+.tableRowItem > * {
+    margin-left: 4px;
+}
+
+.tableRowItem > *:first-child {
+    margin-left: 0px;
+}
+
+.tableSpacer {
+    flex-grow: 1;
+}
+
+.button {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-size: cover;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+
+.rose {
+    background-image: url('../images/rose.png');
+}
+
+.add {
+    background-image: url('../images/add.png');
+}
+
+.minus {
+    background-image: url('../images/minus.png');
+}
+
+.delete {
+    background-image: url('../images/delete.png');
+}
+
+.sort {
+    background-image: url('../images/sort.png');
+}
+
+.picture {
+    width: 36px;
+    height: 36px;
+    border: 2px solid white;
+    background-color: white;
+    border-radius: 19px;
+}
+
+.picture.loading {
+    -webkit-animation: pulse-picture-loading .7s linear infinite;
+    overflow: hidden;
+}
+@-webkit-keyframes pulse-picture-loading {
+    0% {
+        -webkit-box-shadow: rgba(255, 255, 255, 1) 0 0 0px 0px;
+        box-shadow: rgba(255, 255, 255, 1) 0 0 0px 0px;
+    }
+    100% {
+        -webkit-box-shadow: rgba(255, 255, 255, 0) 0 0 0px 8px;
+        box-shadow: rgba(255, 255, 255, 0) 0 0 0px 8px;
+    }
+}
+
+.dot.loading {
+    -webkit-animation: pulse-dot-loading .7s linear infinite;
+    overflow: hidden;
+}
+@-webkit-keyframes pulse-dot-loading {
+    0% {
+        transform: scale(1.0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.0);
+        opacity: 0;
+    }
+}
+
+.roundsTable .tableRowItem {
+    justify-content: center;
+}
+
+.clickable:hover {
+    cursor: pointer;
+    background: rgb(102, 0, 0);
+}
+
+.contestantsTable .button,
+.roundsTable .button {
+    margin-top: 2px;
+    float: right;
+}
+
+.contestantsTable .tableRowHeaderItem,
+.roundsTable .tableRowHeaderItem {
+    flex-grow: 2;
+}
+
+.updateScoresButton {
+    text-align: center;
+}

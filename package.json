@@ -1,0 +1,45 @@
+{
+  "name": "FantasyBach-adminConsole",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.html",
+  "scripts": {
+    "start": "webpack-dev-server --hot --inline"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FantasyBach/FantasyBach-adminConsole.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FantasyBach/FantasyBach-adminConsole/issues"
+  },
+  "homepage": "https://github.com/FantasyBach/FantasyBach-adminConsole",
+  "devDependencies": {
+    "babel-core": "^6.3.17",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "css-loader": "^0.23.0",
+    "react-hot-loader": "^1.3.0",
+    "redux-devtools-dock-monitor": "^1.0.1",
+    "redux-devtools-log-monitor": "^1.0.1",
+    "style-loader": "^0.13.0",
+    "file-loader": "^0.8.5",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  },
+  "dependencies": {
+    "fantasybach-sdk": "0.0.1",
+    "jquery": "^2.1.4",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-redux": "^4.0.1",
+    "redux": "^3.0.5",
+    "redux-devtools": "^3.0.0",
+    "redux-thunk": "^1.0.2"
+  }
+}
