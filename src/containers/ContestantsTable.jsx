@@ -21,7 +21,7 @@ export default class ContestantsTable extends Component {
         inactiveContestants = _.sortBy(inactiveContestants, 'name');
         contestants = _.union(activeContestants, inactiveContestants);
         contestants = _.filter(contestants, function(contestant) {
-            return !contestant.isBachelor
+            return !contestant.isPrimaryContestant
         });
 
         var headerCells = [ <div className="headerCell tableRowItem tableRowHeaderItem" key="contestant">Contestant</div> ];
@@ -31,40 +31,49 @@ export default class ContestantsTable extends Component {
         var header = <div className="tableRow">{headerCells}</div>;
 
         var contestantRows = [];
-        _.each(contestants, function(contestant) {
-            var roses = (contestant.roses && contestant.roses[round.id]) || '';
-            var pictureClassName = 'picture';
-            if (contestant.isFetching || contestant.isUpdating) {
-                pictureClassName += ' loading';
-            }
-            var contestantCells = [
-                <div className="bodyCell tableRowItem tableRowHeaderItem" key={contestant.id + contestant.name}>
-                    <img className={pictureClassName} src={contestant.images.head} />
-                    {contestant.name}
-                    <span className="tableSpacer"> </span>
-                    {roses}
-                    { !_.contains(inactiveContestants, contestant) ? <span className="button rose" onClick={() => {onRoseClick(contestant, round)}}> </span> : ''}
-                    { !_.contains(round.eliminatedContestantIds, contestant.id) && !_.contains(inactiveContestants, contestant) ? <span className="button delete" onClick={() => {onEliminateClick(contestant, round)}}> </span> : ''}
-                </div>
-            ];
-            _.each(roles, function(role) {
-                var roundRoleResults = contestant.roundResults[round.id][role.id];
-                var occurrences = (roundRoleResults && roundRoleResults.occurrences) || 0;
-                contestantCells.push(
-                    <div className="bodyCell tableRowItem" key={contestant.id + role.id}>
+        try {
+            _.each(contestants, function (contestant) {
+                var roses = (contestant.roses && contestant.roses[round.id]) || '';
+                var pictureClassName = 'picture';
+                if (contestant.isFetching || contestant.isUpdating) {
+                    pictureClassName += ' loading';
+                }
+                var contestantCells = [
+                    <div className="bodyCell tableRowItem tableRowHeaderItem" key={contestant.id + contestant.name}>
+                        <img className={pictureClassName} src={contestant.images.head}/>
+                        {contestant.name}
                         <span className="tableSpacer"> </span>
-                        {occurrences}
-                        { !_.contains(inactiveContestants, contestant) ? <span className="button add" onClick={() => {onActionClick(contestant, round, role, 1)}}> </span> : ''}
-                        { !_.contains(inactiveContestants, contestant) ? <span className="button minus" onClick={() => {onActionClick(contestant, round, role, -1)}}> </span> : ''}
+                        {roses}
+                        { !_.contains(inactiveContestants, contestant) ? <span className="button rose"
+                                                                               onClick={() => {onRoseClick(contestant, round)}}> </span> : ''}
+                        { !_.contains(round.eliminatedContestantIds, contestant.id) && !_.contains(inactiveContestants, contestant) ?
+                            <span className="button delete"
+                                  onClick={() => {onEliminateClick(contestant, round)}}> </span> : ''}
                     </div>
-                );
+                ];
+                _.each(roles, function (role) {
+                    var roundRoleResults = contestant.roundResults[round.id][role.id];
+                    var occurrences = (roundRoleResults && roundRoleResults.occurrences) || 0;
+                    contestantCells.push(
+                        <div className="bodyCell tableRowItem" key={contestant.id + role.id}>
+                            <span className="tableSpacer"> </span>
+                            {occurrences}
+                            { !_.contains(inactiveContestants, contestant) ? <span className="button add"
+                                                                                   onClick={() => {onActionClick(contestant, round, role, 1)}}> </span> : ''}
+                            { !_.contains(inactiveContestants, contestant) ? <span className="button minus"
+                                                                                   onClick={() => {onActionClick(contestant, round, role, -1)}}> </span> : ''}
+                        </div>
+                    );
+                });
+                var rowClassName = 'tableRow';
+                if (_.contains(inactiveContestants, contestant)) {
+                    rowClassName += ' inactive';
+                }
+                contestantRows.push(<div className={rowClassName} key={contestant.id}>{contestantCells}</div>);
             });
-            var rowClassName = 'tableRow';
-            if (_.contains(inactiveContestants, contestant)) {
-                rowClassName += ' inactive';
-            }
-            contestantRows.push(<div className={rowClassName} key={contestant.id}>{contestantCells}</div>);
-        });
+        } catch (e) {
+            console.log(e);
+        }
 
         return <div className="contestantsTable">
             <h2>Contestants</h2>

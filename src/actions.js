@@ -91,7 +91,7 @@ export const UPDATE_SCORES_STATUS = {
 
 export const SELECT_ROUND = 'SELECT_ROUND';
 
-const seasonId = '100905a6-90d7-11e5-8994-feff819cdc9f';
+const seasonId = 'season:NJWJTpZ8x';
 
 export function fetchFbAccessToken() {
     return (dispatch, getState) => {
@@ -134,7 +134,7 @@ export function login() {
     return (dispatch, getState) => {
         var accessToken = getState().accessToken.accessToken;
         apigClient.login({token : accessToken}).then(function(result) {
-            dispatch({ type : LOGIN, status : LOGIN_STATUS.LOGGED_IN, userId : result.data.userId });
+            dispatch({ type : LOGIN, status : LOGIN_STATUS.LOGGED_IN, userId : result.userId });
         }).catch(function(err) {
             dispatch({ type : LOGIN, status : LOGIN_STATUS.LOGIN_ERROR, error : err });
         });
@@ -145,7 +145,7 @@ export function login() {
 export function fetchContestants() {
     return dispatch => {
         apigClient.getContestants({seasonId : seasonId}).then(function(result) {
-            dispatch({ type : FETCH_CONTESTANTS, status : FETCH_CONTESTANTS_STATUS.FETCHED, contestants : result.data });
+            dispatch({ type : FETCH_CONTESTANTS, status : FETCH_CONTESTANTS_STATUS.FETCHED, contestants : result });
         }).catch(function(err) {
             dispatch({ type : FETCH_CONTESTANTS, status : FETCH_CONTESTANTS_STATUS.ERROR, error : err });
         });
@@ -156,7 +156,7 @@ export function fetchContestants() {
 export function fetchRoles() {
     return dispatch => {
         apigClient.getRoles({seasonId : seasonId}).then(function(result) {
-            dispatch({ type : FETCH_ROLES, status : FETCH_ROLES_STATUS.FETCHED, roles : result.data });
+            dispatch({ type : FETCH_ROLES, status : FETCH_ROLES_STATUS.FETCHED, roles : result });
         }).catch(function(err) {
             dispatch({ type : FETCH_ROLES, status : FETCH_ROLES_STATUS.ERROR, error : err });
         });
@@ -167,7 +167,7 @@ export function fetchRoles() {
 export function fetchRounds() {
     return dispatch => {
         apigClient.getRounds({seasonId : seasonId}).then(function(result) {
-            var rounds = result.data;
+            var rounds = result;
             dispatch({ type : FETCH_ROUNDS, status : FETCH_ROUNDS_STATUS.FETCHED, rounds : rounds });
             var currentRound = _.find(rounds, function(round) {
                 return moment(round.roundEndLocalDateTime).diff(moment()) > 0 && moment(round.startVoteLocalDateTime).diff(moment()) < 0;
@@ -187,7 +187,7 @@ export function fetchRound(round) {
     };
     return dispatch => {
         apigClient.getRoundById({seasonId : seasonId, id : round.id}).then(function(result) {
-            dispatch(Object.assign({}, responseBase, { status : FETCH_ROUND_STATUS.FETCHED, round : result.data[0] }));
+            dispatch(Object.assign({}, responseBase, { status : FETCH_ROUND_STATUS.FETCHED, round : result[0] }));
         }).catch(function(err) {
             dispatch(Object.assign({}, responseBase, { status : FETCH_ROUND_STATUS.ERROR, error : err }));
         });
@@ -202,7 +202,7 @@ export function fetchContestant(contestant) {
     };
     return dispatch => {
         apigClient.getContestantById({seasonId : seasonId, id : contestant.id}).then(function(result) {
-            dispatch(Object.assign({}, responseBase, { status : FETCH_CONTESTANT_STATUS.FETCHED, contestant : result.data[0] }));
+            dispatch(Object.assign({}, responseBase, { status : FETCH_CONTESTANT_STATUS.FETCHED, contestant : result[0] }));
         }).catch(function(err) {
             dispatch(Object.assign({}, responseBase, { status : FETCH_CONTESTANT_STATUS.ERROR, error : err }));
         });

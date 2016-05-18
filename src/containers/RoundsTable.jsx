@@ -41,8 +41,8 @@ export default class RoundsTable extends Component {
                 moment(round.roundEndLocalDateTime).format(dateFormat),
                 round.eligibleContestantIds.length,
                 round.eliminatedContestantIds.length
-            ], function(item) {
-                roundCells.push(<div className="tableRowItem" key={item}>{item}</div>);
+            ], function(item, index) {
+                roundCells.push(<div className="tableRowItem" key={index + ':' + item}>{item}</div>);
             });
             roundRows.push(<div className="tableRow clickable" onClick={() => {onRoundClick(round)}} key={round.id}>{roundCells}</div>);
         });

@@ -31,7 +31,7 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
-    "fantasybach-sdk": "0.0.1",
+    "fantasybach-sdk": "0.0.11",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
